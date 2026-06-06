@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoSafeNexus IMS | 製造業ESH担当者向け AIマネジメントシステム支援ツール</title>
+<meta name="description" content="ISO14001/45001のマネジメントシステム文書作成・化学物質管理台帳をAIが自動生成。製造業のESH担当者の業務を大幅に効率化。月額5,500円から。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #003366;
+    --navy-mid: #1A4D8A;
+    --navy-light: #2E6BB0;
+    --bg: #F4F7FB;
+    --rule: #BDD0E8;
+    --text: #0D1F33;
+    --white: #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); background: var(--white); font-size: 16px; line-height: 1.7; }
+  h1, h2, h3, .section-title, .plan-price { font-family: 'Noto Serif JP', serif; }
+
+  /* ── ナビ ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--navy);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .nav-logo { color: var(--white); font-size: 18px; font-weight: 900; letter-spacing: 1px; text-decoration: none; }
+  .nav-cta {
+    background: var(--white); color: var(--navy);
+    font-weight: 700; font-size: 13px;
+    padding: 8px 20px; border-radius: 6px; text-decoration: none;
+    transition: opacity .2s;
+  }
+  .nav-cta:hover { opacity: .85; }
+
+  /* ── ヒーロー ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--navy-light) 100%);
+    color: var(--white);
+    text-align: center;
+    padding: 80px 24px 90px;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    font-size: 13px; font-weight: 500;
+    padding: 5px 16px; margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+  .hero h1 { font-size: clamp(24px, 5vw, 42px); font-weight: 900; line-height: 1.35; margin-bottom: 20px; }
+  .hero h1 span { color: #BDD0E8; }
+  .hero p { font-size: clamp(14px, 2vw, 18px); opacity: .9; max-width: 620px; margin: 0 auto 36px; }
+  .btn-primary {
+    display: inline-block;
+    background: var(--white); color: var(--navy);
+    font-weight: 900; font-size: 17px;
+    padding: 16px 48px; border-radius: 8px; text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
+  .hero-note { margin-top: 16px; font-size: 12px; opacity: .7; }
+
+  /* ── セクション共通 ── */
+  section { padding: 72px 24px; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--navy-light); text-transform: uppercase; margin-bottom: 10px; }
+  .section-title { font-size: clamp(22px, 4vw, 34px); font-weight: 900; color: var(--navy); margin-bottom: 14px; line-height: 1.3; }
+  .section-sub { font-size: 15px; color: #4a6080; max-width: 600px; }
+
+  /* ── 課題セクション ── */
+  .pain { background: var(--bg); }
+  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 40px; }
+  .pain-card {
+    background: var(--white); border-radius: 12px;
+    border-left: 4px solid var(--navy-light);
+    padding: 24px 22px;
+    box-shadow: 0 2px 10px rgba(0,51,102,0.06);
+  }
+  .pain-card .icon { font-size: 28px; margin-bottom: 12px; }
+  .pain-card h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .pain-card p { font-size: 14px; color: #4a6080; }
+
+  /* ── 機能セクション ── */
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 44px; }
+  .feature-card {
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--rule);
+    transition: box-shadow .2s, transform .2s;
+    display: flex; flex-direction: column;
+  }
+  .feature-card:hover { box-shadow: 0 8px 24px rgba(0,51,102,0.12); transform: translateY(-3px); }
+  .feature-head { background: var(--navy); color: var(--white); padding: 20px 22px; }
+  .feature-head .num { font-size: 11px; font-weight: 700; opacity: .6; letter-spacing: 2px; margin-bottom: 4px; }
+  .feature-head h3 { font-size: 18px; font-weight: 700; }
+  .feature-body { padding: 20px 22px; background: var(--white); flex: 1; }
+  .feature-body p { font-size: 14px; color: #4a6080; margin-bottom: 14px; }
+  .feature-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { background: var(--bg); border: 1px solid var(--rule); border-radius: 20px; font-size: 12px; font-weight: 500; padding: 3px 10px; color: var(--navy-mid); }
+
+  /* ── 比較表 ── */
+  .compare { background: var(--bg); }
+  .compare-table { width: 100%; border-collapse: collapse; margin-top: 40px; font-size: 14px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,51,102,0.08); }
+  .compare-table th { background: var(--navy); color: var(--white); padding: 14px 16px; text-align: center; font-weight: 700; }
+  .compare-table th.highlight { background: var(--navy-light); }
+  .compare-table td { padding: 13px 16px; text-align: center; border-bottom: 1px solid var(--rule); background: var(--white); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td.highlight { background: #EEF4FF; font-weight: 700; color: var(--navy); }
+  .compare-table td:first-child { text-align: left; font-weight: 500; }
+  .check { color: #1A7A4A; font-size: 18px; }
+  .cross { color: #999; font-size: 16px; }
+
+  /* ── 料金プラン ── */
+  .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 44px; align-items: start; }
+  .plan-card { border-radius: 14px; border: 2px solid var(--rule); padding: 28px 24px; background: var(--white); position: relative; }
+  .plan-card.popular { border-color: var(--navy-light); box-shadow: 0 8px 28px rgba(0,51,102,0.14); }
+  .popular-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--navy-light); color: var(--white);
+    font-size: 12px; font-weight: 700; padding: 4px 16px; border-radius: 20px;
+    white-space: nowrap;
+  }
+  .plan-name { font-size: 14px; font-weight: 700; color: var(--navy-mid); margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+  .plan-price { font-size: 36px; font-weight: 900; color: var(--navy); line-height: 1.1; }
+  .plan-price span { font-size: 14px; font-weight: 500; color: #666; }
+  .plan-desc { font-size: 13px; color: #666; margin: 10px 0 20px; }
+  .plan-features { list-style: none; margin-bottom: 28px; }
+  .plan-features li { font-size: 14px; padding: 6px 0; border-bottom: 1px solid var(--bg); display: flex; align-items: flex-start; gap: 8px; }
+  .plan-features li::before { content: "✓"; color: var(--navy-light); font-weight: 700; flex-shrink: 0; }
+  .btn-plan {
+    display: block; text-align: center;
+    background: var(--navy); color: var(--white);
+    font-weight: 700; font-size: 15px;
+    padding: 13px; border-radius: 8px; text-decoration: none;
+    transition: background .2s;
+  }
+  .btn-plan:hover { background: var(--navy-mid); }
+  .btn-plan.outline {
+    background: var(--white); color: var(--navy);
+    border: 2px solid var(--navy);
+  }
+  .btn-plan.outline:hover { background: var(--bg); }
+
+  /* ── FAQ ── */
+  .faq { background: var(--bg); }
+  .faq-list { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; }
+  details {
+    background: var(--white); border-radius: 10px;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  summary {
+    cursor: pointer; list-style: none;
+    font-weight: 700; font-size: 15px;
+    padding: 18px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    color: var(--navy);
+  }
+  summary::after { content: "+"; font-size: 22px; color: var(--navy-light); transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  .faq-answer { padding: 0 20px 18px; font-size: 14px; color: #4a6080; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    color: var(--white); text-align: center;
+    padding: 80px 24px;
+  }
+  .cta-section h2 { font-size: clamp(22px, 4vw, 36px); font-weight: 900; margin-bottom: 16px; }
+  .cta-section p { font-size: 16px; opacity: .85; margin-bottom: 36px; }
+  .disclaimer {
+    margin-top: 20px; font-size: 12px; opacity: .6;
+    max-width: 500px; margin-left: auto; margin-right: auto;
+  }
+
+  /* ── フッター ── */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.6);
+    text-align: center; padding: 32px 24px;
+    font-size: 13px;
+  }
+  footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .compare-table { font-size: 12px; }
+    .compare-table th, .compare-table td { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ナビ -->
+<nav>
+  <a href="#" class="nav-logo">🌿 EcoSafeNexus IMS</a>
+  <a href="https://buy.stripe.com/4gM3co6Bz2nbe3Q9XdcfK00" class="nav-cta">今すぐ申し込む</a>
+</nav>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="hero-tag">製造業 ESH担当者向け AIツール</div>
+  <h1>マネジメントシステム文書を<br><span>AIと協業する時代へ</span><br>〜 AIによる自動生成 〜</h1>
+  <p>ISO14001/45001の課題分析・リスク管理・化学物質台帳を<br>AIが数分でドラフト。担当者は確認・修正だけでOK。</p>
+  <a href="https://buy.stripe.com/4gM3co6Bz2nbe3Q9XdcfK00" class="btn-primary">月額5,500円で始める →</a>
+  <p class="hero-note">クレジットカード決済 ／ いつでも解約可能</p>
+</div>
+
+<!-- 課題 -->
+<section class="pain">
+  <div class="container">
+    <p class="section-label">PROBLEM</p>
+    <h2 class="section-title">ESH担当者の「あるある」な悩み</h2>
+    <p class="section-sub">ISO審査の前になると毎回同じ作業が繰り返されていませんか？</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="icon">📄</div>
+        <h3>マネジメントシステム文書の作成に丸1日かかる</h3>
+        <p>条項4・6の課題分析、リスク・機会の洗い出し…毎回ゼロから書き直している。</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">🧪</div>
+        <h3>化学物質台帳の更新が追いつかない</h3>
+        <p>SDSが増えるたびに手入力。消防法の指定数量計算も毎回調べている。</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">📋</div>
+        <h3>法改正の見落としが怖い</h3>
+        <p>安衛則・特化則・大防法…54法令の改正を漏れなくチェックする仕組みがない。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 機能 -->
+<section>
+  <div class="container">
+    <p class="section-label">FEATURES</p>
+    <h2 class="section-title">EcoSafeNexus の3つの機能</h2>
+    <p class="section-sub">必要な情報を入力するだけ。AIが実務で使える草案を自動生成します。</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-head">
+          <div class="num">FEATURE 01</div>
+          <h3>マネジメントシステム文書 AI生成</h3>
+        </div>
+        <div class="feature-body">
+          <p>業種・規模・適用規格を入力すると、ISO条項4.1/6.1に対応した課題分析・リスク管理表をAIが自動生成。Excelでダウンロードして即利用できます。</p>
+          <div class="feature-tags">
+            <span class="tag">ISO14001</span>
+            <span class="tag">ISO45001</span>
+            <span class="tag">条項4・6対応</span>
+            <span class="tag">Excel出力</span>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-head">
+          <div class="num">FEATURE 02</div>
+          <h3>化学物質台帳 自動登録</h3>
+        </div>
+        <div class="feature-body">
+          <p>SDSのPDFをアップロードするだけで、法令判定（消防法・毒劇法・有機則・特化則など）とSVHC/SoC判定をAIが自動実施。台帳に一括追記。</p>
+          <div class="feature-tags">
+            <span class="tag">消防法</span>
+            <span class="tag">SVHC判定</span>
+            <span class="tag">SoC判定</span>
+            <span class="tag">指定数量計算</span>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-head">
+          <div class="num">FEATURE 03</div>
+          <h3>法令チャットボット</h3>
+        </div>
+        <div class="feature-body">
+          <p>労安衛法・安衛則・特化則など主要ESH法令の条文をAIが検索して回答。「有機溶剤の測定頻度は？」などの実務的な質問にすぐ答えます。</p>
+          <div class="feature-tags">
+            <span class="tag">10法令対応</span>
+            <span class="tag">条文検索</span>
+            <span class="tag">実務Q&A</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 比較 -->
+<section class="compare">
+  <div class="container">
+    <p class="section-label">COMPARISON</p>
+    <h2 class="section-title">他の選択肢と比べると？</h2>
+    <p class="section-sub">大手ERPやコンサルより圧倒的に低コスト・即日導入。</p>
+    <div style="overflow-x:auto; margin-top:40px;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="text-align:left;">比較軸</th>
+            <th class="highlight">EcoSafeNexus</th>
+            <th>大手ERP</th>
+            <th>コンサル依頼</th>
+            <th>Excel手作業</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>初期費用</td>
+            <td class="highlight">なし</td>
+            <td>数十万円〜</td>
+            <td>数十万円〜</td>
+            <td>なし</td>
+          </tr>
+          <tr>
+            <td>月額費用</td>
+            <td class="highlight">5,500円〜</td>
+            <td>数万円〜</td>
+            <td>数万円〜</td>
+            <td>なし</td>
+          </tr>
+          <tr>
+            <td>導入期間</td>
+            <td class="highlight">即日</td>
+            <td>数ヶ月</td>
+            <td>数ヶ月</td>
+            <td>即日</td>
+          </tr>
+          <tr>
+            <td>AI文書生成</td>
+            <td class="highlight"><span class="check">✓</span></td>
+            <td><span class="cross">△</span></td>
+            <td><span class="check">✓</span>（人手）</td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>化学物質台帳</td>
+            <td class="highlight"><span class="check">✓</span></td>
+            <td><span class="cross">△</span></td>
+            <td><span class="cross">△</span></td>
+            <td><span class="check">✓</span>（手動）</td>
+          </tr>
+          <tr>
+            <td>対象規模</td>
+            <td class="highlight">小〜中規模</td>
+            <td>大規模向け</td>
+            <td>全規模</td>
+            <td>全規模</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 料金プラン -->
+<section id="pricing">
+  <div class="container">
+    <p class="section-label">PRICING</p>
+    <h2 class="section-title">シンプルな料金プラン</h2>
+    <p class="section-sub">契約縛りなし。いつでも解約できます。</p>
+    <div class="plans-grid">
+
+      <!-- 年間払い（一番人気） -->
+      <div class="plan-card popular">
+        <div class="popular-badge">一番人気・おトク</div>
+        <div class="plan-name">年間払い</div>
+        <div class="plan-price">¥52,800<span>/年（税込）</span></div>
+        <div class="plan-desc">実質4,400円/月 ＝ 2ヶ月分お得</div>
+        <ul class="plan-features">
+          <li>マネジメントシステム文書 AI生成（使い放題）</li>
+          <li>化学物質台帳 自動登録</li>
+          <li>法令チャットボット</li>
+          <li>Excelダウンロード</li>
+          <li>スタンダードの全機能</li>
+        </ul>
+        <a href="https://buy.stripe.com/dRm3coe412nbbVI1qHcfK01" class="btn-plan">年間プランで申し込む →</a>
+        <p style="font-size:11px;color:#888;margin-top:10px;text-align:center;">※ 年間プランは一括払いのため、期間内の解約・返金はできません</p>
+      </div>
+
+      <!-- スタンダード -->
+      <div class="plan-card">
+        <div class="plan-name">スタンダード</div>
+        <div class="plan-price">¥5,500<span>/月（税込）</span></div>
+        <div class="plan-desc">個人・小〜中規模事業場向け</div>
+        <ul class="plan-features">
+          <li>マネジメントシステム文書 AI生成（使い放題）</li>
+          <li>化学物質台帳 自動登録</li>
+          <li>法令チャットボット</li>
+          <li>Excelダウンロード</li>
+          <li>いつでも解約可能</li>
+        </ul>
+        <a href="https://buy.stripe.com/4gM3co6Bz2nbe3Q9XdcfK00" class="btn-plan outline">月払いで始める →</a>
+      </div>
+
+      <!-- エンタープライズ -->
+      <div class="plan-card">
+        <div class="plan-name">エンタープライズ</div>
+        <div class="plan-price">¥55,000<span>/月（税込）</span></div>
+        <div class="plan-desc">中〜大規模企業・ESH担当者複数名</div>
+        <ul class="plan-features">
+          <li>全ツール（使い放題）</li>
+          <li>メールサポート付き</li>
+          <li>Webミーティング対応</li>
+          <li>ESH人材育成コンサル</li>
+          <li>複数アカウント発行</li>
+        </ul>
+        <a href="mailto:info@ecosafenexus.com?subject=エンタープライズプランのお問い合わせ" class="btn-plan outline">お問い合わせ</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <p class="section-label">FAQ</p>
+    <h2 class="section-title">よくある質問</h2>
+    <div class="faq-list">
+      <details>
+        <summary>無料トライアルはありますか？</summary>
+        <div class="faq-answer">現在は設定していません。ご要望があればお問い合わせください。</div>
+      </details>
+      <details>
+        <summary>解約はいつでもできますか？</summary>
+        <div class="faq-answer">はい。<a href="https://billing.stripe.com/p/login/4gM3co6Bz2nbe3Q9XdcfK00" target="_blank" style="color:var(--navy-light);">こちらのカスタマーポータル</a>から即時解約できます。解約後は契約期間の末日まで利用可能です。なお、年間プランは期間内の返金はできません。</div>
+      </details>
+      <details>
+        <summary>データはサーバーに保存されますか？</summary>
+        <div class="faq-answer">保存されません。生成されたExcelファイルはブラウザからダウンロードして、お客様自身で管理してください。</div>
+      </details>
+      <details>
+        <summary>AIが生成した内容は正確ですか？</summary>
+        <div class="faq-answer">AIは草案を自動生成しますが、内容の正確性は必ずご自身で確認してください。本ツールは参考情報の提供を目的としており、最終判断は担当者・専門家が行ってください。</div>
+      </details>
+      <details>
+        <summary>ログインパスワード（アクセストークン）を忘れた場合は？</summary>
+        <div class="faq-answer">info@ecosafenexus.comまでご連絡ください。登録メールアドレスへ再送いたします。</div>
+      </details>
+      <details>
+        <summary>ログインに時間がかかります</summary>
+        <div class="faq-answer">しばらく未使用の後は、ログインに数十秒かかる場合があります。画面が表示されるまで少々お待ちください。</div>
+      </details>
+      <details>
+        <summary>IMS（統合マネジメントシステム）とは何ですか？</summary>
+        <div class="faq-answer">IMS（Integrated Management System）とは、ISO14001（環境）・ISO45001（安全衛生）などの複数のマネジメントシステムを一つに統合して運用する仕組みです。本ツールはその文書作成・管理を支援します。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 最終CTA -->
+<div class="cta-section">
+  <h2>まず使ってみませんか？</h2>
+  <p>年間プランなら実質4,400円/月。いつでも解約できます。<br>申し込み後すぐにログインパスワードをメールでお送りします。</p>
+  <a href="https://buy.stripe.com/dRm3coe412nbbVI1qHcfK01" class="btn-primary">年間プランで申し込む →</a>
+  <p class="disclaimer">⚠️ 本ツールの出力は参考情報です。最終判断は必ず担当者・専門家が確認してください。</p>
+</div>
+
+<!-- フッター -->
+<footer>
+  <p>© 2026 EcoSafeNexus&nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="mailto:info@ecosafenexus.com">お問い合わせ</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="https://ecosafenexus-ims.onrender.com">ツールにログイン</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="https://www.ecosafenexus.com/tokushoho.html">特定商取引法に基づく表記</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="https://www.ecosafenexus.com/privacy.html">プライバシーポリシー</a>
+  </p>
+</footer>
+
+</body>
+</html>
