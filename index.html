@@ -38,6 +38,9 @@
     transition: opacity .2s;
   }
   .nav-cta:hover { opacity: .85; }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-login { color: var(--white); font-size: 13px; font-weight: 700; text-decoration: none; opacity: .9; }
+  .nav-login:hover { text-decoration: underline; opacity: 1; }
 
   /* ── ヒーロー ── */
   .hero {
@@ -210,7 +213,10 @@
 <!-- ナビ -->
 <nav>
   <a href="#" class="nav-logo">🌿 EcoSafeNexus IMS</a>
-  <a href="#pricing" class="nav-cta">料金プランを見る</a>
+  <div class="nav-right">
+    <a href="https://ecosafenexus-ims.onrender.com" target="_blank" rel="noopener" class="nav-login">会員ログイン</a>
+    <a href="#pricing" class="nav-cta">料金プランを見る</a>
+  </div>
 </nav>
 
 <!-- ヒーロー -->
