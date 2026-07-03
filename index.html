@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EcoSafeNexus IMS | 製造業ESH担当者向け AIマネジメントシステム支援ツール</title>
-<meta name="description" content="ISO14001/45001のマネジメントシステム文書作成・化学物質管理台帳をAIが自動生成。製造業のESH担当者の業務を大幅に効率化。月額5,500円から。">
+<meta name="description" content="ISO14001/45001の文書生成・リスクアセスメント一式・化学物質台帳・法令チャットボット（54法令）をAIで一気通貫。製造業ESH担当者の実務を大幅に効率化。月額5,500円から。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
 <style>
@@ -102,26 +102,25 @@
   .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto 1fr;
     gap: 24px; margin-top: 44px;
   }
   @media (max-width: 860px) {
-    .features-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+    .features-grid { grid-template-columns: 1fr; }
   }
+  /* カードは自己完結（何枚でも追加可能）。行内の高さはgridが自動で揃える */
   .feature-card {
     border-radius: 14px; overflow: hidden;
     border: 1px solid var(--rule);
     transition: box-shadow .2s, transform .2s;
-    display: grid;
-    grid-template-rows: subgrid;
-    grid-row: span 2;
+    display: flex; flex-direction: column;
   }
   .feature-card:hover { box-shadow: 0 8px 24px rgba(0,51,102,0.12); transform: translateY(-3px); }
-  .feature-head { background: var(--navy); color: var(--white); padding: 20px 22px; }
+  .feature-head { background: var(--navy); color: var(--white); padding: 20px 22px; min-height: 96px; display: flex; flex-direction: column; justify-content: center; }
   .feature-head .num { font-size: 11px; font-weight: 700; opacity: .6; letter-spacing: 2px; margin-bottom: 4px; }
   .feature-head h3 { font-size: 18px; font-weight: 700; }
-  .feature-body { padding: 20px 22px; background: var(--white); }
+  .feature-body { padding: 20px 22px; background: var(--white); flex: 1; display: flex; flex-direction: column; }
   .feature-body p { font-size: 14px; color: #4a6080; margin-bottom: 14px; }
+  .feature-body .feature-tags { margin-top: auto; }
   .feature-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag { background: var(--bg); border: 1px solid var(--rule); border-radius: 20px; font-size: 12px; font-weight: 500; padding: 3px 10px; color: var(--navy-mid); }
 
@@ -261,24 +260,24 @@
   </div>
 </section>
 
-<!-- 機能 -->
-<section>
+<!-- 機能（カードは今後も追加していく。将来: サービス紹介動画へのリンクを各カードや直下に設置） -->
+<section id="features">
   <div class="container">
     <p class="section-label">FEATURES</p>
-    <h2 class="section-title">EcoSafeNexus の3つの機能</h2>
-    <p class="section-sub">必要な情報を入力するだけ。AIが実務で使える草案を自動生成します。</p>
+    <h2 class="section-title">EcoSafeNexus の主な機能</h2>
+    <p class="section-sub">必要な情報を入力するだけ。AIが実務で使える草案を自動生成します。機能は毎月拡充中です。</p>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-head">
           <div class="num">FEATURE 01</div>
-          <h3>マネジメントシステム文書 AI生成</h3>
+          <h3>課題分析・MS文書 AI生成</h3>
         </div>
         <div class="feature-body">
-          <p>業種・規模・適用規格を入力すると、ISO条項4.1/6.1に対応した課題分析・リスク管理表をAIが自動生成。Excelでダウンロードして即利用できます。</p>
+          <p>業種・規模・適用規格（または会議の議事録）から、ISO条項4対応の課題分析・マネジメントシステム文書をAIが自動生成。Excelでダウンロードして即利用できます。</p>
           <div class="feature-tags">
             <span class="tag">ISO14001</span>
             <span class="tag">ISO45001</span>
-            <span class="tag">条項4・6対応</span>
+            <span class="tag">条項4対応</span>
             <span class="tag">Excel出力</span>
           </div>
         </div>
@@ -286,6 +285,21 @@
       <div class="feature-card">
         <div class="feature-head">
           <div class="num">FEATURE 02</div>
+          <h3>リスクアセスメント一式</h3>
+        </div>
+        <div class="feature-body">
+          <p>作業リスクアセスメントはAIが危険源と対策案を提案。環境側面・著しいエネルギー評価、化学物質RA準備（CREATE-SIMPLE連携）、人間工学RA（REBA/NIOSH）まで、条項6の評価をこれひとつで。</p>
+          <div class="feature-tags">
+            <span class="tag">作業RA</span>
+            <span class="tag">環境側面</span>
+            <span class="tag">CREATE-SIMPLE</span>
+            <span class="tag">REBA/NIOSH</span>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-head">
+          <div class="num">FEATURE 03</div>
           <h3>化学物質台帳 自動登録</h3>
         </div>
         <div class="feature-body">
@@ -300,21 +314,43 @@
       </div>
       <div class="feature-card">
         <div class="feature-head">
-          <div class="num">FEATURE 03</div>
-          <h3>法令チャットボット</h3>
+          <div class="num">FEATURE 04</div>
+          <h3>統合レジスター・目標生成</h3>
         </div>
         <div class="feature-body">
-          <p>主要ESH法令の条文をAIが検索して回答。「有機溶剤の測定頻度は？」などの実務的な質問にすぐ答えます。</p>
+          <p>各リスク評価ファイルをまとめてアップすると、共通ランクで統合したレジスターを自動生成。高リスク・著しい項目から年度目標と実施計画（全社→部署展開）もAIが提案します。</p>
+          <div class="feature-tags">
+            <span class="tag">統合集約</span>
+            <span class="tag">網羅性チェック</span>
+            <span class="tag">目標 条項6.2</span>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-head">
+          <div class="num">FEATURE 05</div>
+          <h3>法令チャットボット・順守評価</h3>
+        </div>
+        <div class="feature-body">
+          <p>ESH法令<strong style="color:var(--navy-mid);">54法令</strong>の条文をAIが検索して回答。「有機溶剤の測定頻度は？」などの実務的な質問にすぐ答えます。順守評価チェックリスト・資格教育一覧も。</p>
           <div class="feature-tags">
             <span class="tag">条文検索</span>
             <span class="tag">実務Q&A</span>
+            <span class="tag">順守評価</span>
           </div>
-          <p style="font-size:12px; color:#4a6080; margin-top:12px; line-height:1.8;">
-            <strong style="color:var(--navy-mid);">対応法令（10法令）</strong><br>
-            労働安全衛生法・同施行令・労働安全衛生規則<br>
-            有機則・特化則・石綿則<br>
-            大気汚染防止法・廃棄物処理法・毒劇法・消防法
-          </p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-head">
+          <div class="num">FEATURE 06</div>
+          <h3>会員限定記事・週刊配信</h3>
+        </div>
+        <div class="feature-body">
+          <p>ESH実務の深掘り記事を会員限定で配信。世界のニュースから企業リスクの兆候を読む「週刊ESHリスクレーダー」で、半歩先の備えができます。</p>
+          <div class="feature-tags">
+            <span class="tag">会員限定記事</span>
+            <span class="tag">週刊配信</span>
+          </div>
         </div>
       </div>
     </div>
@@ -428,11 +464,11 @@
         <div class="plan-price">¥52,800<span>/年（税込）</span></div>
         <div class="plan-desc">実質4,400円/月 ＝ 2ヶ月分お得</div>
         <ul class="plan-features">
-          <li>マネジメントシステム文書 AI生成（使い放題）</li>
-          <li>化学物質台帳 自動登録</li>
-          <li>法令チャットボット</li>
-          <li>Excelダウンロード</li>
-          <li>スタンダードの全機能</li>
+          <li>スタンダードの全機能（使い放題）</li>
+          <li>リスクアセスメント一式・統合レジスター・目標生成</li>
+          <li>化学物質台帳（SDS AI読み取り）</li>
+          <li>法令チャットボット（54法令）・順守評価</li>
+          <li>会員限定記事・週刊リスクレーダー</li>
         </ul>
         <a href="https://buy.stripe.com/dRm3coe412nbbVI1qHcfK01" class="btn-plan">年間プランで申し込む →</a>
         <p style="font-size:11px;color:#888;margin-top:10px;text-align:center;">※ 年間プランは一括払いのため、期間内の解約・返金はできません</p>
@@ -444,10 +480,10 @@
         <div class="plan-price">¥5,500<span>/月（税込）</span></div>
         <div class="plan-desc">個人・小〜中規模事業場向け</div>
         <ul class="plan-features">
-          <li>マネジメントシステム文書 AI生成（使い放題）</li>
-          <li>化学物質台帳 自動登録</li>
-          <li>法令チャットボット</li>
-          <li>Excelダウンロード</li>
+          <li>全機能を使い放題（RA一式・レジスター・目標生成）</li>
+          <li>化学物質台帳（SDS AI読み取り）</li>
+          <li>法令チャットボット（54法令）・順守評価</li>
+          <li>会員限定記事・週刊リスクレーダー</li>
           <li>いつでも解約可能</li>
         </ul>
         <a href="https://buy.stripe.com/4gM3co6Bz2nbe3Q9XdcfK00" class="btn-plan outline">月払いで始める →</a>
@@ -480,7 +516,7 @@
     <div class="faq-list">
       <details>
         <summary>無料トライアルはありますか？</summary>
-        <div class="faq-answer">現在は設定していません。ご要望があればお問い合わせください。</div>
+        <div class="faq-answer"><a href="https://ecosafenexus-policy-tool.onrender.com" target="_blank" rel="noopener" style="color:var(--navy-light);">ISO方針ジェネレーター</a>を無料・登録不要で公開しています。環境・安全衛生・品質・統合の方針文案を約3分で生成でき、AIツールの使用感を体験いただけます。</div>
       </details>
       <details>
         <summary>解約はいつでもできますか？</summary>
