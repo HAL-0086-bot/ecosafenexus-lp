@@ -123,6 +123,15 @@
   .feature-body .feature-tags { margin-top: auto; }
   .feature-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag { background: var(--bg); border: 1px solid var(--rule); border-radius: 20px; font-size: 12px; font-weight: 500; padding: 3px 10px; color: var(--navy-mid); }
+  /* 機能紹介動画（クリックで読込む軽量方式・ページ速度を守るためiframeは押すまで生成しない） */
+  .feature-video { position: relative; margin-top: 14px; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; cursor: pointer; background: #000; }
+  .feature-video img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .92; transition: opacity .2s; }
+  .feature-video:hover img { opacity: 1; }
+  .feature-video .play-badge { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+  .feature-video .play-circle { width: 54px; height: 54px; border-radius: 50%; background: rgba(0,51,102,0.85); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; padding-left: 4px; box-shadow: 0 4px 14px rgba(0,0,0,0.35); transition: transform .2s, background .2s; }
+  .feature-video:hover .play-circle { transform: scale(1.1); background: var(--navy); }
+  .feature-video .play-label { font-size: 12px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+  .feature-video iframe { width: 100%; height: 100%; border: 0; }
 
   /* ── 比較表 ── */
   .compare { background: var(--bg); }
@@ -317,6 +326,15 @@
             <span class="tag">SVHC判定</span>
             <span class="tag">SoC判定</span>
             <span class="tag">指定数量計算</span>
+          </div>
+          <div class="feature-video" role="button" tabindex="0" aria-label="化学物質SDS取り込みツールの紹介動画を再生"
+               onclick="playFeatureVideo(this,'G1V_F3lke00')"
+               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();playFeatureVideo(this,'G1V_F3lke00')}">
+            <img src="https://i.ytimg.com/vi/G1V_F3lke00/hqdefault.jpg" alt="化学物質SDS取り込みツールの紹介動画のサムネイル" loading="lazy">
+            <div class="play-badge">
+              <div class="play-circle">▶</div>
+              <div class="play-label">実際の画面を3分で見る</div>
+            </div>
           </div>
         </div>
       </div>
@@ -586,6 +604,15 @@
     <a href="https://www.ecosafenexus.com/privacy.html">プライバシーポリシー</a>
   </p>
 </footer>
+
+<script>
+  // 機能紹介動画: クリックされて初めてYouTubeプレイヤーを生成（youtube-nocookie・関連動画は自チャンネルのみ）
+  function playFeatureVideo(el, id) {
+    el.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id +
+      '?autoplay=1&rel=0" title="紹介動画" allow="accelerometer; autoplay; clipboard-write; ' +
+      'encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+  }
+</script>
 
 </body>
 </html>
